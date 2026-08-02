@@ -5,35 +5,35 @@ from tkinter import messagebox
 
 
 def show_popup(title, message):
-    """Displays a simple, temporary Tkinter popup message box."""
+  
     window = tkinter.Tk()
-    window.withdraw()                       # Hide the main root window
-    messagebox.showinfo(title, message)     # Show the info popup with the given title and message
-    window.destroy()                        # Close the hidden root window completely after dismissal
+    window.withdraw()                       
+    messagebox.showinfo(title, message)  
+    window.destroy()                        
 
 
 def load_dataset(path):
     """Loads CSV data from the specified path and inserts words into the TST root."""
     root = None
-    file = open(path, "r", encoding="utf-8") # Open dataset file in read mode with UTF-8 encoding
-    lines = file.readlines()                 # Read all lines from the file
-    file.close()                             # Close the file safely
+    file = open(path, "r", encoding="utf-8") 
+    lines = file.readlines()                 # Read all lines  
+    file.close()                             # Close the file
 
     first_line = True
     for line in lines:
-        line = line.strip()                  # Remove leading/trailing whitespaces and newlines
+        line = line.strip()                  # Remove whitespaces  
         if line == "":
-            continue                         # Skip empty lines
+            continue                         
         if first_line:
             first_line = False
-            continue                         # Skip header row ("word,translation")
+            continue                          
 
-        parts = line.split(",")              # Split the CSV line by comma into word and translation
+        parts = line.split(",")              # Split the CSV line 
         if len(parts) < 2:
-            continue                         # Skip malformed lines
+            continue                          
 
-        word = parts[0].strip()              # Extract and clean the English word
-        translation = parts[1].strip()       # Extract and clean the Urdu translation
+        word = parts[0].strip()              # English word
+        translation = parts[1].strip()       #  Urdu translation
 
         if word != "":
             root = insert(root, word.lower(), 0, translation)  # Insert lowercase word into the TST
