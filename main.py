@@ -51,7 +51,6 @@ def print_menu():
 
 
 def main():
-    """Main function to run the console menu loop and manage user interactions."""
     print("Loading dictionary...")
     root = load_dataset("dataset.csv")       #Load the dictionary dataset into the TST
     print("Dictionary loaded.")
