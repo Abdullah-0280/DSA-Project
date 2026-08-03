@@ -158,7 +158,7 @@ def run_experiment():
 
         results[label] = times
 
-    # ---- Plot 1: original comparison (TST vs List) ----
+    #TST vs List
     plt.figure(figsize=(8, 5))
 
     for label in labels[:2]:               # TST and List only
@@ -176,7 +176,7 @@ def run_experiment():
 
     print("Saved plot to benchmark_comparison.png")
 
-    # ---- Plot 2: new comparison including Binary Search ----
+    #Binary Search 
     plt.figure(figsize=(8, 5))
 
     for label in labels:                   # TST, List, and Binary Search
