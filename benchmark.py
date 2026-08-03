@@ -48,20 +48,35 @@ def build_tree(pairs):                     # Build TST
     for i in range(len(pairs)):            # Insert word
         root = insert(root, pairs[i][0], 0, pairs[i][1])  # Insert into TST
 
-    return root                            # Return tree root
+    return root                           
 
 
-def build_sorted(pairs):                   # Build sorted array for binary search
-    sorted_pairs = sorted(pairs, key=lambda p: p[0])  # Sort by word
+def build_sorted(pairs):                  
+    sorted_pairs = []                     
+
+    for i in range(len(pairs)):            # Copy pairs
+        sorted_pairs.append(pairs[i])
+
+    n = len(sorted_pairs)                  
+    for i in range(1, n):
+        current = sorted_pairs[i]         
+        j = i - 1
+
+        while j >= 0 and sorted_pairs[j][0] > current[0]:
+            sorted_pairs[j + 1] = sorted_pairs[j]  # Shift right
+            j -= 1
+
+        sorted_pairs[j + 1] = current      #correct spot
+
     return sorted_pairs
 
 
-def binary_search(pairs, word):            # Binary search on sorted array
+def binary_search(pairs, word):           
     word = word.lower()                    # lowercase
     low = 0
     high = len(pairs) - 1
 
-    while low <= high:                     # Standard binary search loop
+    while low <= high:                     
         mid = (low + high) // 2
         mid_word = pairs[mid][0]
 
@@ -106,10 +121,6 @@ def run_experiment():
     if len(ns) == 0:                       # If dataset is very small
         ns.append(max_len)
 
-    # ---- Structures to compare ----
-    # True  -> TST (search_fn expects a tree root)
-    # False -> List (linear scan)
-    # "bin" -> Binary search (sorted array)
     structures = [True, False, "bin"]
     labels = [
         "Ternary Search Tree - O(log N)",
@@ -117,12 +128,11 @@ def run_experiment():
         "Binary Search (Sorted Array) - O(log N)",
     ]
 
-    # Store results per structure so we can reuse them across both plots
     results = {}
 
     for index in range(len(structures)):
-        use_tst = structures[index]        # Current structure flag
-        label = labels[index]              # Current label
+        use_tst = structures[index]        # Current structure 
+        label = labels[index]              
 
         times = []                         # Store timing results
 
@@ -151,8 +161,7 @@ def run_experiment():
             for i in range(0, size, step):  # test words
                 test_words.append(subset[i][0])
 
-            # time_function only needs a bool for its internal branching,
-            # so treat "bin" the same as False (non-TST) there.
+            # time_function only needs a bool
             avg_time = time_function(fn, struct_obj, test_words, use_tst is True)
             times.append(avg_time)
 
