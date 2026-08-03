@@ -79,3 +79,18 @@ def prefix_search(root, prefix):
 
     collect_words(node["middle"], prefix, results)  #
     return results                          #Return matching words
+
+
+# if _name_ == "_main_":
+#     root = None
+
+#     word = "axe"
+#     translation = "کلاہاڑی"
+#     root = insert(root, word, 0, translation)
+
+    
+#     with open("dataset.csv", "a", encoding="utf-8") as f:
+#         f.write(f"\n{word},{translation}")
+
+#     print(f"Inserted to tree and saved to dataset.csv: {word}")
+#     print(f"Lookup Result: {search(root, word)}")
